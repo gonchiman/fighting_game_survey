@@ -9,7 +9,7 @@ from src.constants.paths import PLOT_IMAGES_DIR
 
 class Graphs:
     @staticmethod
-    def show_plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
+    def plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
         df = pd.read_csv(game_title.csv_path)
 
         # "Last 30 Days" は月データではないので除外
@@ -52,7 +52,7 @@ class Graphs:
             plt.show()
 
     @staticmethod
-    def show_cumulative_plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
+    def cumulative_plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
         df = pd.read_csv(game_title.csv_path)
 
         # "Last 30 Days" は月データではないので除外
@@ -95,7 +95,7 @@ class Graphs:
             plt.show()
 
     @staticmethod
-    def show_cumulative_play_hours_plot(game_title: GameTitle, period: Period = None, save: bool = False) -> None:
+    def cumulative_play_hours_plot(game_title: GameTitle, period: Period = None, save: bool = False) -> None:
         df = pd.read_csv(game_title.csv_path)
 
         # "Last 30 Days" は月データではないので除外

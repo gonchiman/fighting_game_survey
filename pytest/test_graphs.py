@@ -10,7 +10,7 @@ from src.constants.months import Month
 def test_plot(monkeypatch):
     monkeypatch.setattr(plt, "show", lambda: None)
 
-    Graphs.show_plot(
+    Graphs.plot(
         game_title=GameTitle.STREET_FIGHTER_6,
         column=SteamChartsColumns.AVG_PLAYERS,
         period=None,
@@ -25,7 +25,7 @@ def test_plot_with_period(monkeypatch):
 
     period = Period(start_year=2024, start_month=Month.JANUARY, duration=12)
 
-    Graphs.show_plot(
+    Graphs.plot(
         game_title=GameTitle.STREET_FIGHTER_6,
         column=SteamChartsColumns.AVG_PLAYERS,
         period=period,
@@ -38,7 +38,7 @@ def test_plot_with_period(monkeypatch):
 def test_plot_with_save_mode(monkeypatch):
     monkeypatch.setattr(plt, "savefig", lambda *args, **kwargs: None)
 
-    Graphs.show_plot(
+    Graphs.plot(
         game_title=GameTitle.STREET_FIGHTER_6,
         column=SteamChartsColumns.AVG_PLAYERS,
         period=None,
@@ -51,7 +51,7 @@ def test_plot_with_save_mode(monkeypatch):
 def test_cumulative_plot(monkeypatch):
     monkeypatch.setattr(plt, "show", lambda: None)
 
-    Graphs.show_cumulative_plot(
+    Graphs.cumulative_plot(
         game_title=GameTitle.STREET_FIGHTER_6,
         column=SteamChartsColumns.AVG_PLAYERS,
         period=None,
@@ -64,7 +64,7 @@ def test_cumulative_plot(monkeypatch):
 def test_cumulative_play_hours_plot(monkeypatch):
     monkeypatch.setattr(plt, "show", lambda: None)
 
-    Graphs.show_cumulative_play_hours_plot(
+    Graphs.cumulative_play_hours_plot(
         game_title=GameTitle.STREET_FIGHTER_6,
         period=None,
         save=False

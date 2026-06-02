@@ -13,7 +13,7 @@ from src.constants.months import Month
 
 period = None
 
-Graphs.show_cumulative_plot(
+Graphs.cumulative_plot(
     GameTitle.STREET_FIGHTER_6, 
     SteamChartsColumns.AVG_PLAYERS, 
     period
