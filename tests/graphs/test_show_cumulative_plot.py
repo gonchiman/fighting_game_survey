@@ -11,4 +11,8 @@ from src.constants.columns import SteamChartsColumns
 from src.constants.months import Month
 
 
-Graphs.show_cumulative_plot(GameTitle.STREET_FIGHTER_6, SteamChartsColumns.AVG_PLAYERS, Period(2024, Month.JANUARY, 24))
+Graphs.show_cumulative_plot(
+    GameTitle.STREET_FIGHTER_6, 
+    SteamChartsColumns.AVG_PLAYERS, 
+    Period(2024, Month.JANUARY, 24)
+)
