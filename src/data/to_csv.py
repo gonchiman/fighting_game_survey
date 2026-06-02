@@ -12,6 +12,7 @@ class ToCSV:
     @classmethod
     def to_csv(cls, game_title: GameTitle) -> None:
         df = cls._get_df(game_title)
+        df.to_csv(game_title.csv_path, index=False, encoding="utf-8-sig")
 
     @staticmethod
     def _get_df(game_title: GameTitle) -> pd.DataFrame:
