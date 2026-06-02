@@ -16,6 +16,11 @@ class GameTitle(Enum):
         1364780,
         DATA_DIR / "street_fighter_6.csv"
     )
+    TEKKEN_8 = GameData(
+        "Tekken 8",
+        1778820,
+        DATA_DIR / "tekken_8.csv"
+    )
 
     @property
     def title(self) -> str:
