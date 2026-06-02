@@ -4,11 +4,12 @@ import pandas as pd
 from src.constants.game_titles import GameTitle
 from src.entities.period import Period
 from src.constants.columns import SteamChartsColumns
+from src.constants.paths import PLOT_IMAGES_DIR
 
 
 class Graphs:
     @staticmethod
-    def show_plot(game_title: GameTitle, column: str, period: Period = None) -> None:
+    def show_plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
         df = pd.read_csv(game_title.csv_path)
 
         # "Last 30 Days" は月データではないので除外
@@ -44,10 +45,14 @@ class Graphs:
         plt.ylabel(column)
         plt.title(f"{game_title} - {column}")
         plt.tight_layout()
-        plt.show()
+        if save:
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_{column}_plot.png")
+            plt.close()
+        else:
+            plt.show()
 
     @staticmethod
-    def show_cumulative_plot(game_title: GameTitle, column: str, period: Period = None) -> None:
+    def show_cumulative_plot(game_title: GameTitle, column: str, period: Period = None, save: bool = False) -> None:
         df = pd.read_csv(game_title.csv_path)
 
         # "Last 30 Days" は月データではないので除外
@@ -83,4 +88,52 @@ class Graphs:
         plt.ylabel(f"Cumulative {column}")
         plt.title(f"{game_title} - Cumulative {column}")
         plt.tight_layout()
-        plt.show()
+        if save:
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_{column}_cumulative_plot.png")
+            plt.close()
+        else:
+            plt.show()
+
+    @staticmethod
+    def show_cumulative_play_hours_plot(game_title: GameTitle, period: Period = None, save: bool = False) -> None:
+        df = pd.read_csv(game_title.csv_path)
+
+        # "Last 30 Days" は月データではないので除外
+        df = df[df[SteamChartsColumns.MONTH] != "Last 30 Days"]
+        df["Estimated Play Hours"] = df[SteamChartsColumns.AVG_PLAYERS] * 720
+
+        # 古い月 → 新しい月 の順にする
+        df = df.iloc[::-1].reset_index(drop=True)
+
+        if period is not None:
+            start_index = df.index[df[SteamChartsColumns.MONTH] == period.start][0]
+            end_index = df.index[df[SteamChartsColumns.MONTH] == period.end][0]
+
+            if start_index > end_index:
+                start_index, end_index = end_index, start_index
+
+            df = df.iloc[start_index:end_index + 1].reset_index(drop=True)
+
+        months = df[SteamChartsColumns.MONTH]
+        values = df["Estimated Play Hours"].cumsum()
+
+        x = range(len(df))
+
+        plt.figure(figsize=(12, 6))
+        plt.plot(x, values, marker="o")
+
+        plt.xticks(
+            ticks=x,
+            labels=months,
+            rotation=90
+        )
+
+        plt.xlabel("Month")
+        plt.ylabel("Estimated Play Hours")
+        plt.title(f"{game_title} - Estimated Play Hours")
+        plt.tight_layout()
+        if save:
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_estimated_play_hours_cumulative_plot.png")
+            plt.close()
+        else:
+            plt.show()

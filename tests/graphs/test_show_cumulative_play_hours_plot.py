@@ -13,8 +13,7 @@ from src.constants.months import Month
 
 period = None
 
-Graphs.show_cumulative_plot(
+Graphs.show_cumulative_play_hours_plot(
     GameTitle.STREET_FIGHTER_6, 
-    SteamChartsColumns.AVG_PLAYERS, 
     period
 )
