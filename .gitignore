@@ -39,3 +39,6 @@ blob-report/
 Thumbs.db
 .vscode/
 .idea/
+
+# Generated plot images
+plot_images/
