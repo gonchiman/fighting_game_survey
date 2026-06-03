@@ -46,7 +46,7 @@ class Graphs:
         plt.title(f"{game_title.title} - {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_{column}_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_{column}_plot.png")
             plt.close()
         else:
             plt.show()
@@ -89,7 +89,7 @@ class Graphs:
         plt.title(f"{game_title.title} - Cumulative {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_{column}_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_{column}_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
@@ -133,7 +133,7 @@ class Graphs:
         plt.title(f"{game_title.title} - Cumulative Estimated Play Hours (Millions)")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_estimated_play_hours_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_estimated_play_hours_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
