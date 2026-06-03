@@ -36,6 +36,7 @@ blob-report/
 
 # Generated data
 data/*.csv
+data/games/*.csv
 
 # OS/editor files
 .DS_Store
