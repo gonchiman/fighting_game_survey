@@ -19,6 +19,6 @@ df = create_total_analysis_df()
 
 df.to_csv(DATA_TOTAL_ANALYSIS_DIR / "total_fighting_games_analysis.csv", index=False, encoding="utf-8-sig")
 
-df["Date"] = df["Date"].dt.strftime()
+df["Date"] = df["Date"].dt.strftime("%Y-%m")
 
 df.to_excel(DATA_TOTAL_ANALYSIS_DIR / "total_fighting_games_analysis.xlsx", index=False)
