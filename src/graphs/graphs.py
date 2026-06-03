@@ -3,9 +3,10 @@ import pandas as pd
 
 from src.entities.period import Period
 from src.constants.columns import SteamChartsColumns, TotalAnalysisColumns
-from src.constants.paths import PLOT_IMAGES_DIR
+from src.constants.paths import PLOT_IMAGES_GAMES_DIR, PLOT_IMAGES_TOTAL_ANALYSIS_DIR
 from src.constants.game_titles import GameTitle
 from src.data.aggregate import create_total_analysis_df
+
 
 class Graphs:
     @staticmethod
@@ -46,7 +47,7 @@ class Graphs:
         plt.title(f"{game_title.title} - {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_{column}_plot.png")
+            plt.savefig(PLOT_IMAGES_GAMES_DIR / f"{game_title.name.lower()}_{column}_plot.png")
             plt.close()
         else:
             plt.show()
@@ -89,7 +90,7 @@ class Graphs:
         plt.title(f"{game_title.title} - Cumulative {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_{column}_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_GAMES_DIR / f"{game_title.name.lower()}_{column}_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
@@ -133,7 +134,7 @@ class Graphs:
         plt.title(f"{game_title.title} - Cumulative Estimated Play Hours (Millions)")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_estimated_play_hours_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_GAMES_DIR / f"{game_title.name.lower()}_estimated_play_hours_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
@@ -176,7 +177,7 @@ class Graphs:
         plt.tight_layout()
 
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"total_estimated_play_hours_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_TOTAL_ANALYSIS_DIR / f"total_estimated_play_hours_cumulative_plot.png")
             plt.close()
         else:
             plt.show()

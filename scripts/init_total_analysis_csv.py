@@ -1,6 +1,8 @@
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,5 +16,9 @@ from src.data.aggregate import create_total_analysis_df
 delete_all_files(DATA_TOTAL_ANALYSIS_DIR)
 
 df = create_total_analysis_df()
+
 df.to_csv(DATA_TOTAL_ANALYSIS_DIR / "total_fighting_games_analysis.csv", index=False, encoding="utf-8-sig")
+
+df["Date"] = df["Date"].dt.strftime()
+
 df.to_excel(DATA_TOTAL_ANALYSIS_DIR / "total_fighting_games_analysis.xlsx", index=False)
