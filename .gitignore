@@ -35,7 +35,7 @@ playwright-report/
 blob-report/
 
 # Generated data
-data/*.csv
+data/
 data/games/*.csv
 
 # OS/editor files
