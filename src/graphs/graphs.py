@@ -43,10 +43,10 @@ class Graphs:
 
         plt.xlabel("Month")
         plt.ylabel(column)
-        plt.title(f"{game_title} - {column}")
+        plt.title(f"{game_title.title} - {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_{column}_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_{column}_plot.png")
             plt.close()
         else:
             plt.show()
@@ -86,10 +86,10 @@ class Graphs:
 
         plt.xlabel("Month")
         plt.ylabel(f"Cumulative {column}")
-        plt.title(f"{game_title} - Cumulative {column}")
+        plt.title(f"{game_title.title} - Cumulative {column}")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_{column}_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_{column}_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
@@ -100,7 +100,7 @@ class Graphs:
 
         # "Last 30 Days" は月データではないので除外
         df = df[df[SteamChartsColumns.MONTH] != "Last 30 Days"]
-        df["Estimated Play Hours"] = df[SteamChartsColumns.AVG_PLAYERS] * 720
+        df["Estimated Play Hours (Millions)"] = df[SteamChartsColumns.AVG_PLAYERS] * 720 / 1_000_000
 
         # 古い月 → 新しい月 の順にする
         df = df.iloc[::-1].reset_index(drop=True)
@@ -115,7 +115,7 @@ class Graphs:
             df = df.iloc[start_index:end_index + 1].reset_index(drop=True)
 
         months = df[SteamChartsColumns.MONTH]
-        values = df["Estimated Play Hours"].cumsum()
+        values = df["Estimated Play Hours (Millions)"].cumsum()
 
         x = range(len(df))
 
@@ -129,11 +129,11 @@ class Graphs:
         )
 
         plt.xlabel("Month")
-        plt.ylabel("Estimated Play Hours")
-        plt.title(f"{game_title} - Estimated Play Hours")
+        plt.ylabel("Cumulative Estimated Play Hours (Millions)")
+        plt.title(f"{game_title.title} - Cumulative Estimated Play Hours (Millions)")
         plt.tight_layout()
         if save:
-            plt.savefig(PLOT_IMAGES_DIR / f"{game_title}_estimated_play_hours_cumulative_plot.png")
+            plt.savefig(PLOT_IMAGES_DIR / f"{game_title.title}_estimated_play_hours_cumulative_plot.png")
             plt.close()
         else:
             plt.show()

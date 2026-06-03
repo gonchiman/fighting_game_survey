@@ -16,6 +16,11 @@ class GameTitle(Enum):
         1364780,
         DATA_DIR / "street_fighter_6.csv"
     )
+    STREET_FIGHTER_V = GameData(
+        "Street Fighter V",
+        310950,
+        DATA_DIR / "street_fighter_v.csv"
+    )
     TEKKEN_8 = GameData(
         "Tekken 8",
         1778820,
