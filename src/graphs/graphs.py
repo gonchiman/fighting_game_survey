@@ -1,11 +1,11 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 
-from src.constants.game_titles import GameTitle
 from src.entities.period import Period
-from src.constants.columns import SteamChartsColumns
+from src.constants.columns import SteamChartsColumns, TotalAnalysisColumns
 from src.constants.paths import PLOT_IMAGES_DIR
-
+from src.constants.game_titles import GameTitle
+from src.data.aggregate import create_total_analysis_df
 
 class Graphs:
     @staticmethod
@@ -134,6 +134,49 @@ class Graphs:
         plt.tight_layout()
         if save:
             plt.savefig(PLOT_IMAGES_DIR / f"{game_title.name.lower()}_estimated_play_hours_cumulative_plot.png")
+            plt.close()
+        else:
+            plt.show()
+
+    @staticmethod
+    def total_cumulative_play_hours_plot(period: Period = None, save: bool = False) -> None:
+        df = create_total_analysis_df()
+
+        df["Estimated Play Hours (Millions)"] = df[TotalAnalysisColumns.CUMULATIVE_ESTIMATED_PLAY_HOURS] / 1_000_000
+
+        if period is not None:
+            start_index = df.index[df[TotalAnalysisColumns.MONTH] == period.start][0]
+            end_index = df.index[df[TotalAnalysisColumns.MONTH] == period.end][0]
+
+            if start_index > end_index:
+                start_index, end_index = end_index, start_index
+
+            df = df.iloc[start_index:end_index + 1].reset_index(drop=True)
+
+        months = df[TotalAnalysisColumns.MONTH]
+        values = df["Estimated Play Hours (Millions)"]
+
+        x = range(len(df))
+
+        plt.figure(figsize=(19, 9))
+        plt.plot(x, values)
+
+        plt.xticks(
+            ticks=x,
+            labels=months,
+            rotation=90
+        )
+
+        plt.xlabel("Month")
+        plt.ylabel("Cumulative Estimated Play Hours (Millions)")
+        plt.title("Monthly Total Cumulative Play Hours of Major Fighting Games on Steam")
+        plt.tight_layout()
+
+        plt.grid(True)
+        plt.tight_layout()
+
+        if save:
+            plt.savefig(PLOT_IMAGES_DIR / f"total_estimated_play_hours_cumulative_plot.png")
             plt.close()
         else:
             plt.show()
